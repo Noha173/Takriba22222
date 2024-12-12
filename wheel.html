@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عجلة الحظ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .wheel-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 40px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .wheel {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: 50% 50%;
+            transition: transform 5s ease-out;
+        }
+        .segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background-color: #f39c12;
+            transform-origin: 100% 100%;
+            clip-path: polygon(100% 100%, 0% 0%, 100% 0%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .segment:nth-child(2n) {
+            background-color: #e74c3c;
+        }
+        .segment-text {
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px #000;
+        }
+        .pointer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+        .spin-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .spin-btn:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            display: none; /* مخفية مبدئياً */
+        }
+        .input-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>عجلة الحظ</h1>
+    <div class="wheel-container">
+        <div class="wheel" id="wheel">
+            <div class="segment" style="transform: rotate(0deg);">
+                <div class="segment-text">$5</div>
+            </div>
+            <div class="segment" style="transform: rotate(45deg);">
+                <div class="segment-text">$10</div>
+            </div>
+            <div class="segment" style="transform: rotate(90deg);">
+                <div class="segment-text">$50</div>
+            </div>
+            <div class="segment" style="transform: rotate(135deg);">
+                <div class="segment-text">$100</div>
+            </div>
+            <div class="segment" style="transform: rotate(180deg);">
+                <div class="segment-text">$500</div>
+            </div>
+            <div class="segment" style="transform: rotate(225deg);">
+                <div class="segment-text">$1000</div>
+            </div>
+            <div class="segment" style="transform: rotate(270deg);">
+                <div class="segment-text">$50</div>
+            </div>
+            <div class="segment" style="transform: rotate(315deg);">
+                <div class="segment-text">$10</div>
+            </div>
+        </div>
+        <div class="pointer"></div>
+    </div>
+
+    <div class="input-container">
+        <label for="payment-amount">أدخل المبلغ المدفوع ($):</label>
+        <input type="number" id="payment-amount" placeholder="مثال: 100" />
+    </div>
+
+    <button class="spin-btn" onclick="spinWheel()">قم بتدوير العجلة</button>
+
+    <!-- النتيجة ستكون هنا -->
+    <div class="result" id="result"></div>
+
+    <script>
+        function spinWheel() {
+            const wheel = document.getElementById('wheel');
+            const result = document.getElementById('result');
+            const paymentAmount = document.getElementById('payment-amount').value;
+            
+            if (!paymentAmount || paymentAmount <= 0) {
+                alert('يرجى إدخال المبلغ المدفوع');
+                return;
+            }
+
+            const spinDegrees = Math.floor(Math.random() * (5000 - 3000) + 3000); // دوران عشوائي
+            const winAmount = (Math.floor(Math.random() * 1000) + 1); // تعيين ربح عشوائي
+
+            // حساب نسبة الربح بناءً على المبلغ المدفوع
+            const percentageWin = (parseFloat(paymentAmount) * 0.10).toFixed(2); // 10% من المبلغ المدفوع
+
+            // تدوير العجلة
+            wheel.style.transform = `rotate(${spinDegrees}deg)`;
+
+            setTimeout(() => {
+                result.style.display = 'block'; // إظهار النتيجة
+                result.innerText = `لقد دفعت ${paymentAmount} دولار و الربح المحتمل هو ${percentageWin} دولار.`;
+                localStorage.setItem('balance', percentageWin); // حفظ الرصيد في التخزين المحلي
+            }, 5000);
+        }
+    </script>
+    
+    <br>
+    <button onclick="window.location.href = 'account.html';">العودة إلى حسابك</button>
+</body>
+</html>
