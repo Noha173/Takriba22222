@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة الدفع</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .payment-info {
+            margin-top: 20px;
+        }
+        .payment-method {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+        .payment-method a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .payment-method a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>صفحة الدفع</h1>
+    <p>من فضلك اختر طريقة الدفع المناسبة لك</p>
+    
+    <!-- PayPal Payment -->
+    <div class="payment-info">
+        <h2>الدفع عبر بايبال</h2>
+        <p>للدفع عبر بايبال، اضغط على الرابط أدناه:</p>
+        <div class="payment-method">
+            <a href="https://www.paypal.com/ncp/payment/M3KD8C93SZW2S" target="_blank">الدفع عبر بايبال</a>
+        </div>
+    </div>
+    
+    <!-- TRC-20 Payment -->
+    <div class="payment-info">
+        <h2>الدفع عبر شبكة TRC-20</h2>
+        <p>للدفع عبر شبكة TRC-20، استخدم العنوان أدناه:</p>
+        <div class="payment-method">
+            <p>عنوان المحفظة: TQkHHVUfQC6oZ6rZYxNuUL32EvCAyM8Rd2</p>
+            <p>نسخ العنوان: <span id="copyText">TQkHHVUfQC6oZ6rZYxNuUL32EvCAyM8Rd2</span></p>
+            <button onclick="copyAddress()">نسخ العنوان</button>
+        </div>
+    </div>
+    
+    <script>
+        function copyAddress() {
+            var copyText = document.getElementById("copyText");
+            navigator.clipboard.writeText(copyText.textContent).then(function() {
+                alert("تم نسخ العنوان!");
+            }, function(err) {
+                alert("فشل في نسخ العنوان.");
+            });
+        }
+    </script>
+
+    <br>
+    <button onclick="window.location.href = 'account.html';">العودة إلى الحساب</button>
+</body>
+</html>
