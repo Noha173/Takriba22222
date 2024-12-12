@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلب السحب</title>
+</head>
+<body>
+    <h1>طلب السحب</h1>
+    <form action="mailto:dreaminvestment311@gmail.com" method="POST" enctype="text/plain">
+        <label for="amount">المبلغ المطلوب سحبه:</label>
+        <input type="text" id="amount" name="amount" required>
+        <br>
+        <label for="wallet">رقم المحفظة (TRC-20):</label>
+        <input type="text" id="wallet" name="wallet" required>
+        <br>
+        <label for="note">ملاحظات إضافية:</label>
+        <textarea id="note" name="note"></textarea>
+        <br>
+        <button type="submit">إرسال طلب السحب</button>
+    </form>
+</body>
+</html>
